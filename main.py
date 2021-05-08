@@ -1,15 +1,21 @@
 import os
-import discord
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
 token=os.getenv("DISCORD_TOKEN")
 
 
-client=discord.Client()
+bot=commands.Bot(command_prefix="!")
 
-@client.event
-async def on_ready():
-    print("hello")
+@bot.command(name="bday")
+async def bday(ctx):
+    await ctx.send("Happy Birthday")
 
-client.run(token)
+@bot.event
+async def on_command_error(ctx, error):
+    print(error)
+
+
+
+bot.run(token)
